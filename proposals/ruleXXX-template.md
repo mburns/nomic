@@ -1,5 +1,5 @@
 ---
-RULE: 000
+RULE: 3XX
 Author: John Doe <jdoe@example.com>
 Status: Draft
 Type: <Immutable, Mutable>
