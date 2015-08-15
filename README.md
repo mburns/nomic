@@ -37,7 +37,7 @@ This is an example rule that has no effect.
 
 # Copyright
 
-I dedicate any and all copyright interest in this software to the public domain. I make this dedication for the benefit of the public at large and to the detriment of my heirs and successors. I intend this dedication to be an overt act of relinquishment in perpetuity of all present and future rights to this software under copyright law.
+This work is in the public domain. In jurisdictions that do not allow for this, this work is available under [CC0](https://creativecommons.org/publicdomain/zero/1.0/). To the extent possible under law, the person who associated [CC0](https://creativecommons.org/publicdomain/zero/1.0/) with this work has waived all copyright and related or neighboring rights to this work.
 ```
 
 ### Meta game
@@ -53,3 +53,7 @@ This repository was inspired by a [Hacker News comment](https://news.ycombinator
 * https://github.com/aasmith/nomic
 * https://github.com/alokmenghrajani/nomic
 * https://github.com/fkh/nomic
+
+# Copyright
+
+All information on this site is public domain and may be distributed or copied unless otherwise specified.
