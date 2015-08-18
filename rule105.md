@@ -7,7 +7,11 @@ Type: Mutable
 
 # Rule
 
-Every player is an eligible voter. Every eligible voter must participate in every vote on rule-changes.
+Every player is an eligible voter. Quorum for a vote is reached when more than half of all eligible voters participate in the proposed rule-change.
+
+## Original Language
+
+>Every player is an eligible voter. Every eligible voter must participate in every vote on rule-changes.
 
 # Copyright
 
