@@ -2,7 +2,7 @@
 RULE: 105
 Author: Peter Suber <peters@earlham.edu>
 Status: Accepted
-Type: Immutable
+Type: Mutable
 ---
 
 # Rule
