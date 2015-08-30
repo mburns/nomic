@@ -55,12 +55,12 @@ Rule | Mutable | Brief Description
 #### End-game
 Rule | Mutable | Brief Description
 ---- | ------- | -----------------
-[208](/rule208.md) | Y | The **winner** is the first player to achieve 200 (positive) points.
+[208](/rule208.md) | Y | The **winner** is of the Round first Player to achieve 200 (positive) points.
 [213](/rule213.md) | Y | If the rules are changed so that further play is impossible, or if by the Judge's best reasoning, not overruled, a move appears equally legal and illegal, then the first player unable to complete a turn is the **winner**.
 
 ### Submitting a rule-change
 
-Using the template provided in [ruleXXX](/templates/ruleXXX.md), create a new file and rename it to a unique `rule3##.md` and edit the contents to reflect your desired rule-change proposal. Open a Pull Request to begin a discussion and vote on the proposal.
+Using the template provided in [ruleXXX](/templates/ruleXXX.md), create a new file and rename it to a unique `rule3##.md` and edit the contents to reflect your desired rule-change proposal. Open a Pull Request to begin a discussion and vote on the proposal. Commits should be squashed and the commit message should be well formed (see: [rule303](/rule303.md)).
 
 Amendments and discussion may take place in the Pull Request to refine the proposal.
 
