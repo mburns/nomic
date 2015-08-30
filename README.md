@@ -41,7 +41,7 @@ Rule | Mutable | Brief Description
 #### Player Actions
 Rule | Mutable | Brief Description
 ---- | ------- | -----------------
-[105](/rule105.md) | N | Every player is an eligible voter
+[105](/rule105.md) | Y | Every player is an eligible voter
 [207](/rule207.md) | Y | Each player always has exactly one vote
 [202](/rule202.md) | Y | One turn consists of: (1) proposing one rule-change and having it voted on, and (2) adding a [computed value](/rule202.md) to your score
 
