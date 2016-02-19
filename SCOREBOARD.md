@@ -16,10 +16,3 @@ User | Points | Contrariness
 ---- | ------ | ------------
 @mburns | 0 | 0
 @jirwin | 0 | 0
-
-## Rule-change History
-
-Rule | Proposer | Result | Points | Date
----- | -------- | ------ | ------ | ----
-| | | | 
-
