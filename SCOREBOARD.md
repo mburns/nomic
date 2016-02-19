@@ -1,4 +1,4 @@
-## Players
+# Scoreboard
 
 User | Points
 ---- | ------
