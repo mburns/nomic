@@ -12,7 +12,7 @@
 
 ## Players
 
-User | Points | Contrariness
----- | ------ | ------------
-@mburns | 0 | 0
-@jirwin | 0 | 0
+User | Points
+---- | ------
+@mburns | 0
+@jirwin | 0
