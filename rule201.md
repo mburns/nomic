@@ -7,7 +7,7 @@ Type: Mutable
 
 # Rule
 
-Players shall alternate in alphabetical order by Github Username.
+Players may take their turn at any time, independent of other Players.
 
 ## Original Language
 
