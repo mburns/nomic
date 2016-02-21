@@ -33,7 +33,6 @@ For amendments:
 ```markdown
 amend(<rule number>): Short, imperative description of the rule change.
 
-
 A longer description of the rule if it is needed. The short description
 should be limited to 72 characters or less.
 ```
@@ -62,7 +61,6 @@ CFJ(1): Player Foo violated Rule ###
 
 I claim that Player Foo violated Rule ### when X, Y and Z occurred.
 ```
-
 
 # Copyright
 
