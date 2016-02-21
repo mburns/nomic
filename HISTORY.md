@@ -2,5 +2,4 @@
 
 Rule | Proposer | Result | Points | Date
 ---- | -------- | ------ | ------ | ----
-| | | | 
-
+| | | |
