@@ -7,9 +7,12 @@ Type: Mutable
 
 # Rule
 
-Players subtract 291 from the ordinal number of their proposal and multiply the result by the fraction of favorable votes it received, rounded to the nearest integer.
+One turn consists of two parts in this order:
 
-(This yields a number between 0 and 10 for the first player, with the upper limit increasing by one each turn; more points are awarded for more popular proposals.)
+1. Proposing one rule-change and having it voted on, and
+2. Subtracting 291 from the ordinal number of their proposal and multiply the result by the fraction of favorable votes it received, rounded to the nearest integer.
+
+    (This yields a number between 0 and 10 for the first player, with the upper limit increasing by one each turn; more points are awarded for more popular proposals.)
 
 ## Original Language
 
