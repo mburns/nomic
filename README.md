@@ -1,6 +1,7 @@
 # Github Nomic
 
 [![Join the chat at https://gitter.im/mburns/nomic](https://badges.gitter.im/mburns/nomic.svg)](https://gitter.im/mburns/nomic?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Build Status](https://travis-ci.org/mburns/nomic.svg?branch=master)](https://travis-ci.org/mburns/nomic)
 
 This is an instance of the game [Nomic](https://en.wikipedia.org/wiki/Nomic) driven by Github interactions:
 

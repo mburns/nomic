@@ -1,0 +1,29 @@
+{
+  "name": "nomic",
+  "version": "1.0.0",
+  "description": "Nomic is a game in which changing the rules is a move.",
+  "main": "index.js",
+  "scripts": {
+    "test": "markdownlint --config .markdownlint.json *.md"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mburns/nomic.git"
+  },
+  "keywords": [
+    "nomic"
+  ],
+  "author": "Michael Burns <michael@mirwin.net>",
+  "contributors": [{
+    "name": "Justin Gallardo",
+    "email": "justin.gallardo@gmail.com"
+  }],
+  "license": "CC0-1.0",
+  "bugs": {
+    "url": "https://github.com/mburns/nomic/issues"
+  },
+  "homepage": "https://github.com/mburns/nomic#readme",
+  "devDependencies": {
+    "markdownlint-cli": "0.0.3"
+  }
+}
