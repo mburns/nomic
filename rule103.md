@@ -7,7 +7,7 @@ Type: Immutable
 
 # Rule
 
-A rule-change is any of the following: 
+A rule-change is any of the following:
 
 1. the enactment, repeal, or amendment of a mutable rule;
 2. the enactment, repeal, or amendment of an amendment of a mutable rule; or
