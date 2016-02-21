@@ -8,7 +8,7 @@ This is an instance of the game [Nomic](https://en.wikipedia.org/wiki/Nomic) dri
 * [Rules](https://github.com/mburns/nomic/wiki/Rules) are stored as Markdown documents
 * [Votes](https://github.com/mburns/nomic/wiki/Voting) are handled as (+1/-1) comments and discussion in [Pull Requests](https://github.com/mburns/nomic/pulls)
 
-## What is Nomic?
+## What is Nomic
 
 > "[Nomic](http://legacy.earlham.edu/~peters/writing/nomic.htm) is a game in which changing the rules is a move. In that respect it differs from almost every other game. The primary activity of Nomic is proposing changes in the rules, debating the wisdom of changing them in that way, voting on the changes, deciding what can and cannot be done afterwards, and doing it. Even this core of the game, of course, can be changed."
 > -- Peter Suber, [The Paradox of Self-Amendment](http://dash.harvard.edu/handle/1/10243418)
