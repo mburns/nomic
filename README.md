@@ -45,6 +45,7 @@ Rule | Mutable | Brief Description
 [116](/rule116.md) | N | Whatever is not prohibited or regulated by a rule is permitted and unregulated
 
 #### Player Actions
+
 Rule | Mutable | Brief Description
 ---- | ------- | -----------------
 [105](/rule105.md) | Y | Every player is an eligible voter
@@ -52,6 +53,7 @@ Rule | Mutable | Brief Description
 [202](/rule202.md) | Y | One turn consists of: (1) proposing one rule-change and having it voted on, and (2) adding a [computed value](/rule202.md) to your score
 
 #### Rule-changes
+
 Rule | Mutable | Brief Description
 ---- | ------- | -----------------
 [111](/rule111.md) | N | If a rule-change as proposed is unclear then the other players may suggest amendments or argue against the proposal before the vote.
@@ -59,6 +61,7 @@ Rule | Mutable | Brief Description
 [205](/rule205.md) | Y | An adopted rule-change takes full effect at the moment of the completion of the vote that adopted it.
 
 #### End-game
+
 Rule | Mutable | Brief Description
 ---- | ------- | -----------------
 [208](/rule208.md) | Y | The **winner** is of the Round first Player to achieve 200 (positive) points.
