@@ -53,6 +53,7 @@ For judgments:
 CFJ(<judgment number>): Short, imperative description of the CFJ
 
 A longer description of the claim or judgment if it is needed. The short description should be limited to 80 characters or less.
+```
 
 Example:
 
