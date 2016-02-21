@@ -77,9 +77,9 @@ These document's formatting was inspired by [chef-rfc](https://github.com/chef/c
 
 This repository was inspired by a [Hacker News comment](https://news.ycombinator.com/item?id=4889988) by [ChrisAcky](http://acky.vze.com/) and follows in the footsteps of other Nomic Github games:
 
-* https://github.com/aasmith/nomic
-* https://github.com/alokmenghrajani/nomic
-* https://github.com/fkh/nomic
+* [aasmith/nomic](https://github.com/aasmith/nomic)
+* [alokmenghrajani/nomic](https://github.com/alokmenghrajani/nomic)
+* [fkh/nomic](https://github.com/fkh/nomic)
 
 # Copyright
 
