@@ -35,8 +35,6 @@ Here are the basic set of rules that describe the parameters of the game. All ru
 1. Players vote on and submit rule-changes to evolve the game
 2. Disputes are resolved through [Call For Judgments](https://github.com/mburns/nomic/blob/master/.github/CONTRIBUTING.md#call-for-judgment) by choosing another Player as a nuetral arbitrator.
 
-*These descriptions are non-binding. See the individual rules for their specific language.*
-
 #### Ground Rules
 
 Rule | Mutable | Brief Description
