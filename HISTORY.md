@@ -1,6 +1,5 @@
-## Rule-change History
+# Rule-change History
 
 Rule | Proposer | Result | Points | Date
 ---- | -------- | ------ | ------ | ----
-| | | | 
-
+| | | |

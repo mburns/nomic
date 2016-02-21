@@ -8,7 +8,7 @@ This is an instance of the game [Nomic](https://en.wikipedia.org/wiki/Nomic) dri
 * [Rules](https://github.com/mburns/nomic/wiki/Rules) are stored as Markdown documents
 * [Votes](https://github.com/mburns/nomic/wiki/Voting) are handled as (+1/-1) comments and discussion in [Pull Requests](https://github.com/mburns/nomic/pulls)
 
-## What is Nomic?
+## What is Nomic
 
 > "[Nomic](http://legacy.earlham.edu/~peters/writing/nomic.htm) is a game in which changing the rules is a move. In that respect it differs from almost every other game. The primary activity of Nomic is proposing changes in the rules, debating the wisdom of changing them in that way, voting on the changes, deciding what can and cannot be done afterwards, and doing it. Even this core of the game, of course, can be changed."
 > -- Peter Suber, [The Paradox of Self-Amendment](http://dash.harvard.edu/handle/1/10243418)
@@ -35,8 +35,6 @@ Here are the basic set of rules that describe the parameters of the game. All ru
 1. Players vote on and submit rule-changes to evolve the game
 2. Disputes are resolved through [Call For Judgments](https://github.com/mburns/nomic/blob/master/.github/CONTRIBUTING.md#call-for-judgment) by choosing another Player as a nuetral arbitrator.
 
-*These descriptions are non-binding. See the individual rules for their specific language.*
-
 #### Ground Rules
 
 Rule | Mutable | Brief Description
@@ -45,6 +43,7 @@ Rule | Mutable | Brief Description
 [116](/rule116.md) | N | Whatever is not prohibited or regulated by a rule is permitted and unregulated
 
 #### Player Actions
+
 Rule | Mutable | Brief Description
 ---- | ------- | -----------------
 [105](/rule105.md) | Y | Every player is an eligible voter
@@ -52,6 +51,7 @@ Rule | Mutable | Brief Description
 [202](/rule202.md) | Y | One turn consists of: (1) proposing one rule-change and having it voted on, and (2) adding a [computed value](/rule202.md) to your score
 
 #### Rule-changes
+
 Rule | Mutable | Brief Description
 ---- | ------- | -----------------
 [111](/rule111.md) | N | If a rule-change as proposed is unclear then the other players may suggest amendments or argue against the proposal before the vote.
@@ -59,6 +59,7 @@ Rule | Mutable | Brief Description
 [205](/rule205.md) | Y | An adopted rule-change takes full effect at the moment of the completion of the vote that adopted it.
 
 #### End-game
+
 Rule | Mutable | Brief Description
 ---- | ------- | -----------------
 [208](/rule208.md) | Y | The **winner** is of the Round first Player to achieve 200 (positive) points.
@@ -74,10 +75,10 @@ These document's formatting was inspired by [chef-rfc](https://github.com/chef/c
 
 This repository was inspired by a [Hacker News comment](https://news.ycombinator.com/item?id=4889988) by [ChrisAcky](http://acky.vze.com/) and follows in the footsteps of other Nomic Github games:
 
-* https://github.com/aasmith/nomic
-* https://github.com/alokmenghrajani/nomic
-* https://github.com/fkh/nomic
+* [aasmith/nomic](https://github.com/aasmith/nomic)
+* [alokmenghrajani/nomic](https://github.com/alokmenghrajani/nomic)
+* [fkh/nomic](https://github.com/fkh/nomic)
 
-# Copyright
+## Copyright
 
 All information on this site is public domain and may be distributed or copied unless otherwise specified.
