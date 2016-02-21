@@ -81,6 +81,6 @@ This repository was inspired by a [Hacker News comment](https://news.ycombinator
 * [alokmenghrajani/nomic](https://github.com/alokmenghrajani/nomic)
 * [fkh/nomic](https://github.com/fkh/nomic)
 
-# Copyright
+## Copyright
 
 All information on this site is public domain and may be distributed or copied unless otherwise specified.
