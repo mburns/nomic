@@ -2,7 +2,8 @@
 
 [![Join the chat at https://gitter.im/mburns/nomic](https://badges.gitter.im/mburns/nomic.svg)](https://gitter.im/mburns/nomic?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](https://travis-ci.org/mburns/nomic.svg?branch=master)](https://travis-ci.org/mburns/nomic)
-[![Coverage Status](https://coveralls.io/repos/github/mburns/nomic/badge.svg?branch=master)](https://coveralls.io/github/mburns/nomic?branch=master)
+[![Code Climate](https://codeclimate.com/github/mburns/nomic/badges/gpa.svg)](https://codeclimate.com/github/mburns/nomic)
+[![Issue Count](https://codeclimate.com/github/mburns/nomic/badges/issue_count.svg)](https://codeclimate.com/github/mburns/nomic)
 
 This is an instance of the game [Nomic](https://en.wikipedia.org/wiki/Nomic) driven by Github interactions:
 
