@@ -1,0 +1,5 @@
+# Terms
+
+Player
+Voter
+Proponet
