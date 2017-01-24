@@ -1,8 +1,8 @@
 ---
-RULE: 105
+RULE: 309
 Author: Peter Suber <peters@earlham.edu>
 Status: Accepted
-Type: Mutable
+Type: Immutable
 ---
 
 # Rule
@@ -23,6 +23,7 @@ if v >= q, quorum is reached.
 
 ## Original Language
 
+>Rule 105
 >Every player is an eligible voter. Every eligible voter must participate in every vote on rule-changes.
 
 ## Notes
