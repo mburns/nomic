@@ -26,7 +26,7 @@ if v >= q, quorum is reached.
 >Rule 105
 >Every player is an eligible voter. Every eligible voter must participate in every vote on rule-changes.
 
-## Notes
+## References
 
 * [Chiark Nomic, rule 201](http://www.chiark.greenend.org.uk/~dricher/Nomic/CN/rules.html)
 
