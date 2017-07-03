@@ -10,7 +10,7 @@ Tags: vote
 
 Each player always has exactly one vote.
 
-Upon submission of a rule-change, the proposing Player automatically casts an immutable +1 vote for their proposal.
+Upon submission of a rule-change, the proposing Player automatically casts an immutable `+1` vote for their proposal.
 
 ## Original Language
 

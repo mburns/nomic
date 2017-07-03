@@ -8,7 +8,7 @@ Tags: meta
 
 # Rule
 
-At no time may there be more than 25 mutable rules.
+At no time may there be more than `25` mutable rules.
 
 # Copyright
 
