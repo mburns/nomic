@@ -1,8 +1,9 @@
 ---
 RULE: 303
 Author: Justin Gallardo <justin.gallardo@gmail.com>
-Status: Draft
+Status: Accepted
 Type: Mutable
+Tags: meta, change
 ---
 
 # Rule

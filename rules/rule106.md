@@ -3,6 +3,7 @@ RULE: 106
 Author: Peter Suber <peters@earlham.edu>
 Status: Accepted
 Type: Immutable
+Tags: change
 ---
 
 # Rule

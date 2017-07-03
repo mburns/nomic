@@ -3,6 +3,7 @@ RULE: 208
 Author: Peter Suber <peters@earlham.edu>
 Status: Accepted
 Type: Mutable
+Tags: endgame
 ---
 
 # Rule

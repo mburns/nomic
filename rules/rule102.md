@@ -3,6 +3,7 @@ RULE: 102
 Author: Peter Suber <peters@earlham.edu>
 Status: Accepted
 Type: Immutable
+Tags: meta, init
 ---
 
 # Rule

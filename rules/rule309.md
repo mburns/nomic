@@ -3,6 +3,7 @@ RULE: 309
 Author: Peter Suber <peters@earlham.edu>
 Status: Accepted
 Type: Immutable
+Tags: player, vote
 ---
 
 # Rule

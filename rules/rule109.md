@@ -3,6 +3,7 @@ RULE: 109
 Author: Peter Suber <peters@earlham.edu>
 Status: Accepted
 Type: Immutable
+Tags: change, vote
 ---
 
 # Rule
