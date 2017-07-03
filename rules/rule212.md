@@ -3,6 +3,7 @@ RULE: 212
 Author: Peter Suber <peters@earlham.edu>
 Status: Accepted
 Type: Mutable
+Tags: judge, vote
 ---
 
 # Rule

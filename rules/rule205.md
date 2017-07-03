@@ -3,6 +3,7 @@ RULE: 205
 Author: Peter Suber <peters@earlham.edu>
 Status: Accepted
 Type: Mutable
+Tags: change
 ---
 
 # Rule

@@ -3,6 +3,7 @@ RULE: 204
 Author: Peter Suber <peters@earlham.edu>
 Status: Accepted
 Type: Mutable
+Tags: point, vote
 ---
 
 # Rule

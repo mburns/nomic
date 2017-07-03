@@ -3,13 +3,14 @@ RULE: 108
 Author: Peter Suber <peters@earlham.edu>
 Status: Accepted
 Type: Immutable
+Tags: change
 ---
 
 # Rule
 
 Each proposed rule-change shall be given a number for reference.
 
-The numbers shall begin with 301, and each rule-change proposed in the proper way shall receive the next successive integer, whether or not the proposal is adopted.
+The numbers shall begin with `301`, and each rule-change proposed in the proper way shall receive the next successive integer, whether or not the proposal is adopted.
 
 * If a rule is repealed and reenacted, it receives the number of the proposal to reenact it.
 * If a rule is amended or transmuted, it receives the number of the proposal to amend or transmute it.

@@ -3,6 +3,7 @@ RULE: 113
 Author: Peter Suber <peters@earlham.edu>
 Status: Accepted
 Type: Immutable
+Tags: endgame, player
 ---
 
 # Rule
