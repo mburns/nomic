@@ -6,7 +6,7 @@
 This is an instance of the game [Nomic](https://en.wikipedia.org/wiki/Nomic) driven by Github interactions:
 
 * [Players](https://github.com/mburns/nomic/wiki/Player) are Github users that have [forked this repo](#joining-the-game)
-* [Rules](https://github.com/mburns/nomic/wiki/Rules) are stored as Markdown documents
+* [Rules](https://github.com/mburns/nomic/wiki/rules) are stored as Markdown documents
 * [Votes](https://github.com/mburns/nomic/wiki/Voting) are handled as (+1/-1) comments and discussion in [Pull Requests](https://github.com/mburns/nomic/pulls)
 
 ## What is Nomic
@@ -18,11 +18,11 @@ This is an instance of the game [Nomic](https://en.wikipedia.org/wiki/Nomic) dri
 
 Gameplay consists of:
 
-1. [Follow the existing rules](/rule101.md). Questions can be asked via [Issues](https://github.com/mburns/nomic/issues).
+1. [Follow the existing rules](/rules/rule101.md). Questions can be asked via [Issues](https://github.com/mburns/nomic/issues).
 2. A Player [proposes a rule-change](https://github.com/mburns/nomic/blob/master/.github/CONTRIBUTING.md) to an existing (or entirely new) rule via Pull Request.
-3. [Players](https://github.com/mburns/nomic/wiki/Player) [discuss](/rule111.md) and [vote](/rule105.md) on proposals, earning [points in the process](/SCOREBOARD.md).
+3. [Players](https://github.com/mburns/nomic/wiki/Player) [discuss](/rules/rule111.md) and [vote](/rules/rule105.md) on proposals, earning [points in the process](/SCOREBOARD.md).
 
-The game is won when the first user reaches [+200 points](/rule208.md) or is [stuck on a turn that is an impossible position](/rule213.md) and it cannot be resolved through discussion or jurisdiction within the game.
+The game is won when the first user reaches [+200 points](/rules/rule208.md) or is [stuck on a turn that is an impossible position](/rules/rule213.md) and it cannot be resolved through discussion or jurisdiction within the game.
 
 ### Joining the game
 
@@ -40,31 +40,31 @@ Here are the basic set of rules that describe the parameters of the game. All ru
 
 Rule | Mutable | Brief Description
 ---- | ------- | -----------------
-[101](/rule101.md) | N | All players must always abide by all the rules
-[116](/rule116.md) | N | Whatever is not prohibited or regulated by a rule is permitted and unregulated
+[101](/rules/rule101.md) | N | All players must always abide by all the rules
+[116](/rules/rule116.md) | N | Whatever is not prohibited or regulated by a rule is permitted and unregulated
 
 #### Player Actions
 
 Rule | Mutable | Brief Description
 ---- | ------- | -----------------
-[105](/rule105.md) | Y | Every player is an eligible voter
-[207](/rule207.md) | Y | Each player always has exactly one vote
-[202](/rule202.md) | Y | One turn consists of: (1) proposing one rule-change and having it voted on, and (2) adding a [computed value](/rule202.md) to your score
+[105](/rules/rule105.md) | Y | Every player is an eligible voter
+[207](/rules/rule207.md) | Y | Each player always has exactly one vote
+[202](/rules/rule202.md) | Y | One turn consists of: (1) proposing one rule-change and having it voted on, and (2) adding a [computed value](/rules/rule202.md) to your score
 
 #### Rule-changes
 
 Rule | Mutable | Brief Description
 ---- | ------- | -----------------
-[111](/rule111.md) | N | If a rule-change as proposed is unclear then the other players may suggest amendments or argue against the proposal before the vote.
-[104](/rule104.md) | N | All rule-changes proposed in the proper way shall be [voted on](https://github.com/mburns/nomic/wiki/Voting)
-[205](/rule205.md) | Y | An adopted rule-change takes full effect at the moment of the completion of the vote that adopted it.
+[111](/rules/rule111.md) | N | If a rule-change as proposed is unclear then the other players may suggest amendments or argue against the proposal before the vote.
+[104](/rules/rule104.md) | N | All rule-changes proposed in the proper way shall be [voted on](https://github.com/mburns/nomic/wiki/Voting)
+[205](/rules/rule205.md) | Y | An adopted rule-change takes full effect at the moment of the completion of the vote that adopted it.
 
 #### End-game
 
 Rule | Mutable | Brief Description
 ---- | ------- | -----------------
-[208](/rule208.md) | Y | The **winner** is of the Round first Player to achieve 200 (positive) points.
-[213](/rule213.md) | Y | If the rules are changed so that further play is impossible, or if by the Judge's best reasoning, not overruled, a move appears equally legal and illegal, then the first player unable to complete a turn is the **winner**.
+[208](/rules/rule208.md) | Y | The **winner** is of the Round first Player to achieve 200 (positive) points.
+[213](/rules/rule213.md) | Y | If the rules are changed so that further play is impossible, or if by the Judge's best reasoning, not overruled, a move appears equally legal and illegal, then the first player unable to complete a turn is the **winner**.
 
 ### Meta game
 
