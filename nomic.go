@@ -3,7 +3,6 @@ package main
 import (
 	"bufio"
 	"bytes"
-	"flag"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -11,6 +10,8 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+
+	"github.com/pborman/getopt/v2"
 )
 
 // This helper will streamline our error checks below.
@@ -26,6 +27,7 @@ type Metadata struct {
 	Author string
 	Status string
 	Type   string
+	Tags   []string
 }
 
 // Body is the actual text of the rule
@@ -116,10 +118,10 @@ func readRule(filename string, dir string) *Rule {
 
 		if bytes.Contains(line, []byte("---")) {
 			count++
-		}
 
-		if count > 1 {
-			break
+			if count > 1 {
+				break
+			}
 		}
 
 		if bytes.Contains(line, []byte("RULE")) {
@@ -135,6 +137,11 @@ func readRule(filename string, dir string) *Rule {
 
 		if bytes.Contains(line, []byte("Status")) {
 			metadata.Status = getMetaVal(line)
+		}
+
+		if bytes.Contains(line, []byte("Tags")) {
+			t := getMetaVal(line)
+			metadata.Tags = strings.Split(t, ", ")
 		}
 
 		if bytes.Contains(line, []byte("Type")) {
@@ -156,12 +163,15 @@ func readRule(filename string, dir string) *Rule {
 		// grab (sub)heading name
 		r := regexp.MustCompile("^#+ ([A-Za-z]+)")
 		check(err)
+
 		m := r.FindStringSubmatch(str)
 
 		if len(m) > 0 {
 			step = m[1]
+			// Body.Text is the catch-all for any text not part of another heading
 			if step == "Rule" {
 				step = "Text"
+				continue
 			}
 		}
 		// step = (sub)heading
@@ -213,13 +223,45 @@ func writeRules(rules []Rule) {
 	// TODO :  concat all rule.Body.Text
 	dat = "# Rules\n\n"
 	for _, v := range rules {
-		dat = dat + fmt.Sprintf("### [%d](rules/rule%d.md)\n%s\n\n", v.Metadata.Number, v.Metadata.Number, v.Body.Text)
+		dat = dat + fmt.Sprintf("### [%d](rules/rule%d.md)\n\n```%s```\n\n", v.Metadata.Number, v.Metadata.Number, v.Body.Text)
 	}
 	err := ioutil.WriteFile("RULES.md", []byte(dat), 0644)
 	check(err)
 }
 
+// determine a list of valid users
 func getUsers() {
+}
+
+func printTags(rules []Rule) {
+
+	for _, v := range rules {
+		fmt.Println(v.Metadata.Number, v.Metadata.Tags)
+	}
+
+}
+
+func printRule(rule Rule) {
+	fmt.Printf("%d\n", rule.Metadata.Number)
+	// fmt.Printf("%d, %s\n", rule.Metadata.Number, rule.Body.Text)
+}
+
+func hasTag(tag string, list []string) bool {
+	for _, b := range list {
+		if b == tag {
+			return true
+		}
+	}
+	return false
+}
+
+func getTag(rules []Rule, tag string) {
+
+	for _, v := range rules {
+		if hasTag(tag, v.Metadata.Tags) {
+			printRule(v)
+		}
+	}
 
 }
 
@@ -247,16 +289,30 @@ func writeScoreboard() {
 	check(err)
 }
 
+var verbose = false
+var dir = "rules/"
+var tag string
+
+func init() {
+	getopt.Flag(&verbose, 'v', "be verbose")
+	getopt.FlagLong(&dir, "directory", 'd', "The directory where rules are stored.")
+	getopt.FlagLong(&tag, "tag", 't', "Tag to search for.")
+}
+
 func main() {
 
-	var dir = flag.String("rulesDir", "rules/", "The directory where rules are stored.")
-	// var noop = flag.Bool("noop", false, "No-op mode. Do not write out data.")
+	getopt.Parse()
 
-	flag.Parse()
-
-	rules := getRules(*dir)
+	rules := getRules(dir)
 	writeRules(rules)
-	// writeScoreboard()
+
+	if tag != "" {
+		getTag(rules, tag)
+	}
+
+	if verbose {
+		printTags(rules)
+	}
 
 	m := countMutable(rules)
 	if m < 25 {
