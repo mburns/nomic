@@ -188,7 +188,7 @@ func readRule(filename string, dir string) *Rule {
 		switch step {
 		case "Text":
 			// TODO : remove hack by prepending 4 spaces directly to the Rule text
-			body.Text = body.Text + "    " + str
+			body.Text = body.Text + "> " + str
 		case "Example":
 			body.Examples = body.Examples + str
 		case "Original":
@@ -235,7 +235,7 @@ func writeRules(rules []Rule) {
 	dat = "# Rules\n\n"
 
 	for _, v := range rules {
-		dat = dat + fmt.Sprintf("[#%d](rules/rule%d.md): %s\n", v.Metadata.Number, v.Metadata.Number, v.Body.Text)
+		dat = dat + fmt.Sprintf("[#%d](rules/rule%d.md): %s \n%s\n", v.Metadata.Number, v.Metadata.Number, v.Metadata.Tags, v.Body.Text)
 	}
 	err := ioutil.WriteFile("RULES.md", []byte(dat), 0644)
 	check(err)
