@@ -160,6 +160,14 @@ func readRule(filename string, dir string) *Rule {
 		// convert line from byte array to string
 		str := fmt.Sprintf("%s\n", line)
 
+		// eat blank lines
+		// rn := regexp.MustCompile("^$")
+		// check(err)
+		// n := rn.FindStringSubmatch(str)
+		// if len(n) > 0 {
+		// 	continue
+		// }
+
 		// grab (sub)heading name
 		r := regexp.MustCompile("^#+ ([A-Za-z]+)")
 		check(err)
@@ -179,7 +187,8 @@ func readRule(filename string, dir string) *Rule {
 		// append line to correct string
 		switch step {
 		case "Text":
-			body.Text = body.Text + str
+			// TODO : remove hack by prepending 4 spaces directly to the Rule text
+			body.Text = body.Text + "    " + str
 		case "Example":
 			body.Examples = body.Examples + str
 		case "Original":
@@ -189,7 +198,9 @@ func readRule(filename string, dir string) *Rule {
 		case "Copyright":
 			copyright = copyright + str
 		default:
-			panic("unrecognized escape character")
+			body.Examples = body.Examples + str
+
+			// panic("unrecognized escape character")
 		}
 	}
 
@@ -222,8 +233,9 @@ func writeRules(rules []Rule) {
 
 	// TODO :  concat all rule.Body.Text
 	dat = "# Rules\n\n"
+
 	for _, v := range rules {
-		dat = dat + fmt.Sprintf("### [%d](rules/rule%d.md)\n\n```%s```\n\n", v.Metadata.Number, v.Metadata.Number, v.Body.Text)
+		dat = dat + fmt.Sprintf("[#%d](rules/rule%d.md): %s\n", v.Metadata.Number, v.Metadata.Number, v.Body.Text)
 	}
 	err := ioutil.WriteFile("RULES.md", []byte(dat), 0644)
 	check(err)
