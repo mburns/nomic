@@ -3,7 +3,7 @@ RULE: 112
 Author: Peter Suber <peters@earlham.edu>
 Status: Accepted
 Type: Immutable
-Tags: endgame, point
+Tags: endgame, score
 ---
 
 # Rule
