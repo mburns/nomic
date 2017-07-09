@@ -19,10 +19,6 @@ let p = a / v
 if p >= (2/3), proposal is adopted
 ```
 
-## Original Language
-
->A rule-change is adopted if and only if the vote is unanimous among the eligible voters. If this rule is not amended by the end of the second complete circuit of turns, it automatically changes to require only a simple majority.
-
 ## References
 
 * [CharNomic #109](http://www.tesseract.org/nomic/ruleset.html#NewRules)
