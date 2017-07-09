@@ -1,7 +1,7 @@
 ---
 RULE: 301
 Author: Michael Burns <michael@mirwin.net>
-Status: Draft
+Status: Accepted
 Type: Mutable
 Tags: endgame
 ---
