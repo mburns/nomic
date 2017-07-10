@@ -277,6 +277,33 @@ func getTag(rules []Rule, tag string) {
 
 }
 
+func AppendIfMissing(slice []string, s string) []string {
+	for _, v := range slice {
+		if v == s {
+			return slice
+		}
+	}
+	return append(slice, s)
+}
+
+func writeAuthors(rules []Rule) {
+	var dat string
+	var authors []string
+
+	// unique list of rule authors
+	for _, v := range rules {
+		authors = AppendIfMissing(authors, v.Metadata.Author)
+	}
+
+	dat = "# Authors\n\n"
+	for _, v := range authors {
+		dat = dat + fmt.Sprintf("%s\n", v)
+	}
+
+	err := ioutil.WriteFile("AUTHORS.md", []byte(dat), 0644)
+	check(err)
+}
+
 // read CHANGELOG, generate user scores
 func getScores() {
 	// getUsers
@@ -317,6 +344,7 @@ func main() {
 
 	rules := getRules(dir)
 	writeRules(rules)
+	writeAuthors(rules)
 
 	if tag != "" {
 		getTag(rules, tag)
