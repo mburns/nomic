@@ -11,7 +11,7 @@ Tags: meta, change
 All rule proposals and amendments must adhere to the commit format set
 forth below.
 
-For proposals:
+## Proposals
 
 ```markdown
 propose(<rule number>): Short, imperative description of the new rule.
@@ -29,7 +29,7 @@ This rule defines a standard format for commit messages used when
 proposing new rules or amending existing rules.
 ```
 
-For amendments:
+## Amendments
 
 ```markdown
 amend(<rule number>): Short, imperative description of the rule change.
@@ -47,7 +47,7 @@ This increases the maximum length of the first line in a commit message
 to 80 characters up from 72 characters.
 ```
 
-For judgments:
+## Judgments
 
 ```markdown
 CFJ(<judgment number>): Short, imperative description of the CFJ
