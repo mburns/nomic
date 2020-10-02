@@ -1,5 +1,5 @@
 ---
-RULE: 105
+RULE: 302
 Author: Peter Suber <peters@earlham.edu>
 Status: Accepted
 Type: Mutable
