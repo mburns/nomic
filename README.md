@@ -47,8 +47,8 @@ Rule | Mutable | Brief Description
 
 Rule | Mutable | Brief Description
 ---- | ------- | -----------------
-[105](/rules/rule105.md) | Y | Every player is an eligible voter
-[207](/rules/rule207.md) | Y | Each player always has exactly one vote
+[309](/rules/rule309.md) | Y | Every player is an eligible voter
+[307](/rules/rule307.md) | Y | Each player always has exactly one vote
 [202](/rules/rule202.md) | Y | One turn consists of: (1) proposing one rule-change and having it voted on, and (2) adding a [computed value](/rules/rule202.md) to your score
 
 #### Rule-changes
@@ -57,14 +57,15 @@ Rule | Mutable | Brief Description
 ---- | ------- | -----------------
 [111](/rules/rule111.md) | N | If a rule-change as proposed is unclear then the other players may suggest amendments or argue against the proposal before the vote.
 [104](/rules/rule104.md) | N | All rule-changes proposed in the proper way shall be [voted on](https://github.com/mburns/nomic/wiki/Voting)
-[205](/rules/rule205.md) | Y | An adopted rule-change takes full effect at the moment of the completion of the vote that adopted it.
+[205](/rules/rule205.md) | Y | An adopted rule-change takes effect the moment of the completion of the vote that adopted it.
 
 #### End-game
 
 Rule | Mutable | Brief Description
 ---- | ------- | -----------------
-[208](/rules/rule208.md) | Y | The **winner** is of the Round first Player to achieve 200 (positive) points.
-[213](/rules/rule213.md) | Y | If the rules are changed so that further play is impossible, or if by the Judge's best reasoning, not overruled, a move appears equally legal and illegal, then the first player unable to complete a turn is the **winner**.
+[208](/rules/rule208.md) | Y | The **winner** of the Round is the first Player to achieve 200 (positive) points.
+[213](/rules/rule213.md) | Y | If the rules are changed so that further play is impossible, then the first player unable to complete a turn is the **winner**.
+[301](/rules/rule301.md) | Y | The nomic itself does not end and the ruleset remains unchanged.
 
 ### Meta game
 
@@ -72,7 +73,7 @@ The [Wiki](https://github.com/mburns/nomic/wiki) and [Issues](https://github.com
 
 ## Influences
 
-These document's formatting was inspired by [chef-rfc](https://github.com/chef/chef-rfc).
+Formatting for these documents was inspired by [chef-rfc](https://github.com/chef/chef-rfc).
 
 This repository was inspired by a [Hacker News comment](https://news.ycombinator.com/item?id=4889988) by [ChrisAcky](http://acky.vze.com/) and follows in the footsteps of other Nomic Github games:
 
