@@ -1,5 +1,5 @@
 ---
-RULE: 303
+RULE: 304
 Author: Justin Gallardo <justin.gallardo@gmail.com>
 Status: Accepted
 Type: Mutable
@@ -23,7 +23,7 @@ should be limited to 72 characters or less.
 Example:
 
 ```markdown
-propose(303): Define commit message format.
+propose(304): Define commit message format.
 
 This rule defines a standard format for commit messages used when
 proposing new rules or amending existing rules.
@@ -41,7 +41,7 @@ should be limited to 72 characters or less.
 Example:
 
 ```markdown
-amend(303): Increase the maximum characters in first line of commit msg.
+amend(304): Increase the maximum characters in first line of commit msg.
 
 This increases the maximum length of the first line in a commit message
 to 80 characters up from 72 characters.
