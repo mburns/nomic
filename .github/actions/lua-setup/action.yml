@@ -1,0 +1,38 @@
+name: 'Lua Setup'
+description: 'Sets up Lua environment with dependencies'
+
+inputs:
+  install-dev-deps:
+    description: 'Whether to install development dependencies'
+    required: false
+    default: 'false'
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v4
+      
+    - name: Set up Lua
+      uses: leafo/gh-actions-lua@v10
+      with:
+        luaVersion: "5.4"
+
+    - name: Set up LuaRocks
+      uses: leafo/gh-actions-luarocks@v4
+        
+    - name: Install core dependencies
+      shell: bash
+      run: |
+        luarocks install lua-cjson
+        luarocks install lyaml
+        luarocks install luafilesystem
+
+    - name: Install dev dependencies
+      if: inputs.install-dev-deps == 'true'
+      shell: bash
+      run: |
+        luarocks install busted
+        luarocks install luacov
+        luarocks install luassert
+        luarocks install luacheck
+        luarocks install stylua

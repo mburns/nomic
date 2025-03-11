@@ -1,0 +1,28 @@
+repos:
+  - repo: local
+    hooks:
+      - id: luacheck
+        name: luacheck
+        description: Run luacheck static analyzer
+        entry: luacheck
+        language: system
+        types: [lua]
+        args: [--codes, --formatter=plain]
+        files: ^(src|test)/.*\.lua$
+        
+      - id: stylua
+        name: stylua
+        description: Run stylua formatter
+        entry: stylua
+        language: system
+        types: [lua]
+        files: ^(src|test)/.*\.lua$
+        
+      - id: busted
+        name: busted
+        description: Run busted tests
+        entry: busted
+        language: system
+        pass_filenames: false
+        always_run: true
+        args: [test] 

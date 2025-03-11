@@ -1,86 +1,187 @@
-# Github Nomic
+# Nomic Voting System (Lua Implementation)
 
-[![Join the chat at https://gitter.im/mburns/nomic](https://badges.gitter.im/mburns/nomic.svg)](https://gitter.im/mburns/nomic?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Build Status](https://travis-ci.org/mburns/nomic.svg?branch=master)](https://travis-ci.org/mburns/nomic)
+This repository contains a Lua implementation of a voting system for Nomic games. It tracks votes on proposals and updates player scores based on the outcomes.
 
-This is an instance of the game [Nomic](https://en.wikipedia.org/wiki/Nomic) driven by Github interactions:
+## Features
 
-* [Players](https://github.com/mburns/nomic/wiki/Player) are Github users that have [forked this repo](#joining-the-game)
-* [Rules](https://github.com/mburns/nomic/wiki/rules) are stored as Markdown documents
-* [Votes](https://github.com/mburns/nomic/wiki/Voting) are handled as (+1/-1) comments and discussion in [Pull Requests](https://github.com/mburns/nomic/pulls)
+- Tracks votes from GitHub issue comments
+- Updates player scores based on proposal outcomes
+- Stores data in YAML files for persistence
+- Includes comprehensive test suite
 
-## What is Nomic
+## Components
 
-> "[Nomic](http://legacy.earlham.edu/~peters/writing/nomic.htm) is a game in which changing the rules is a move. In that respect it differs from almost every other game. The primary activity of Nomic is proposing changes in the rules, debating the wisdom of changing them in that way, voting on the changes, deciding what can and cannot be done afterwards, and doing it. Even this core of the game, of course, can be changed."
-> -- Peter Suber, [The Paradox of Self-Amendment](http://dash.harvard.edu/handle/1/10243418)
+The system consists of two main scripts:
 
-## Getting Started
+1. **trackVotes.lua**: Processes votes from GitHub issue comments and updates the votes.yaml file.
+2. **updateScores.lua**: Updates player scores based on the outcomes of proposals and updates the scores.yaml file.
 
-Gameplay consists of:
+## Requirements
 
-1. [Follow the existing rules](/rules/rule101.md). Questions can be asked via [Issues](https://github.com/mburns/nomic/issues).
-2. A Player [proposes a rule-change](https://github.com/mburns/nomic/blob/master/.github/CONTRIBUTING.md) to an existing (or entirely new) rule via Pull Request.
-3. [Players](https://github.com/mburns/nomic/wiki/Player) [discuss](/rules/rule111.md) and [vote](/rules/rule105.md) on proposals, earning [points in the process](/SCOREBOARD.md).
+- Lua 5.4+
+- LuaRocks (for managing dependencies)
+- Required Lua libraries:
+  - lua-cjson (for JSON parsing)
+  - lyaml (for YAML parsing)
+  - busted (for testing)
+  - luassert (for test assertions)
 
-The game is won when the first user reaches [+200 points](/rules/rule208.md) or is [stuck on a turn that is an impossible position](/rules/rule213.md) and it cannot be resolved through discussion or jurisdiction within the game.
+## Installation
 
-### Joining the game
+```bash
+# Install Lua and LuaRocks
+# On Ubuntu/Debian:
+sudo apt-get install lua5.4 luarocks
 
-1. [Vote](https://github.com/mburns/nomic/blob/master/.github/CONTRIBUTING.md#voting)
-2. [Suggests a rule-change](https://github.com/mburns/nomic/blob/master/.github/CONTRIBUTING.md#submit-a-rule-change).
+# On macOS with Homebrew:
+brew install lua luarocks
 
-### Minimum rules worth knowing
+# Install dependencies
+luarocks install lua-cjson
+luarocks install lyaml
+luarocks install busted
+luarocks install luassert
+```
 
-Here are the basic set of rules that describe the parameters of the game. All rules are subject to change (even 'immutable' rules), as that is central to the game.
+## Usage
 
-1. Players vote on and submit rule-changes to evolve the game
-2. Disputes are resolved through [Call For Judgments](https://github.com/mburns/nomic/blob/master/.github/CONTRIBUTING.md#call-for-judgment) by choosing another Player as a nuetral arbitrator.
+### Track Votes
 
-#### Ground Rules
+```bash
+lua src/trackVotes.lua
+```
 
-Rule | Mutable | Brief Description
----- | ------- | -----------------
-[101](/rules/rule101.md) | N | All players must always abide by all the rules
-[116](/rules/rule116.md) | N | Whatever is not prohibited or regulated by a rule is permitted and unregulated
+This script reads comments from a GitHub issue and tracks votes. It expects the following environment variables:
 
-#### Player Actions
+- `GITHUB_EVENT_PATH`: Path to the GitHub event JSON file
+- `GITHUB_REPOSITORY`: The repository in the format "owner/repo"
+- `GITHUB_TOKEN`: A GitHub token with appropriate permissions
 
-Rule | Mutable | Brief Description
----- | ------- | -----------------
-[309](/rules/rule309.md) | Y | Every player is an eligible voter
-[307](/rules/rule307.md) | Y | Each player always has exactly one vote
-[202](/rules/rule202.md) | Y | One turn consists of: (1) proposing one rule-change and having it voted on, and (2) adding a [computed value](/rules/rule202.md) to your score
+### Update Scores
 
-#### Rule-changes
+```bash
+lua src/updateScores.lua
+```
 
-Rule | Mutable | Brief Description
----- | ------- | -----------------
-[111](/rules/rule111.md) | N | If a rule-change as proposed is unclear then the other players may suggest amendments or argue against the proposal before the vote.
-[104](/rules/rule104.md) | N | All rule-changes proposed in the proper way shall be [voted on](https://github.com/mburns/nomic/wiki/Voting)
-[205](/rules/rule205.md) | Y | An adopted rule-change takes effect the moment of the completion of the vote that adopted it.
+This script updates player scores based on the outcomes of proposals. It reads from votes.yaml and scores.yaml, and updates these files with the new state.
 
-#### End-game
+## Testing
 
-Rule | Mutable | Brief Description
----- | ------- | -----------------
-[208](/rules/rule208.md) | Y | The **winner** of the Round is the first Player to achieve 200 (positive) points.
-[213](/rules/rule213.md) | Y | If the rules are changed so that further play is impossible, then the first player unable to complete a turn is the **winner**.
-[301](/rules/rule301.md) | Y | The nomic itself does not end and the ruleset remains unchanged.
+Tests are written using the Busted framework. To run the tests:
 
-### Meta game
+```bash
+make test
+# or
+busted test
+```
 
-The [Wiki](https://github.com/mburns/nomic/wiki) and [Issues](https://github.com/mburns/nomic/issues) are intended to be 'out of bounds' or meta-game (in so much as such a thing is possible in Nomic) and used for coordination and clarification of the game's process by Players and spectators alike.
+## Development Tools
 
-## Influences
+This project includes several development tools to ensure code quality and maintainability:
 
-Formatting for these documents was inspired by [chef-rfc](https://github.com/chef/chef-rfc).
+### Dependency Management
 
-This repository was inspired by a [Hacker News comment](https://news.ycombinator.com/item?id=4889988) by [ChrisAcky](http://acky.vze.com/) and follows in the footsteps of other Nomic Github games:
+Dependencies are managed using LuaRocks. The project includes a rockspec file that defines all dependencies.
 
-* [aasmith/nomic](https://github.com/aasmith/nomic)
-* [alokmenghrajani/nomic](https://github.com/alokmenghrajani/nomic)
-* [fkh/nomic](https://github.com/fkh/nomic)
+```bash
+# Install all dependencies
+make install
+# or
+luarocks make
+```
 
-## Copyright
+### Linting
 
-All information on this site is public domain and may be distributed or copied unless otherwise specified.
+Luacheck is used for static code analysis to catch potential errors and enforce coding standards.
+
+```bash
+make lint
+# or
+luacheck src test
+```
+
+### Formatting
+
+StyLua is used to ensure consistent code formatting.
+
+```bash
+# Format code
+make format
+# or
+stylua src test
+
+# Check formatting without modifying files
+make format-check
+# or
+stylua --check src test
+```
+
+### Code Coverage
+
+LuaCov is used to generate code coverage reports.
+
+```bash
+make coverage
+# or
+busted --coverage test
+luacov
+```
+
+### Development Setup
+
+To set up a development environment with all necessary tools:
+
+```bash
+make dev-setup
+```
+
+### Running All Checks
+
+To run all checks (linting, formatting, and tests) at once:
+
+```bash
+make check
+```
+
+### Pre-commit Hooks
+
+This project uses pre-commit hooks to ensure code quality before commits. To set up pre-commit:
+
+```bash
+# Install pre-commit
+pip install pre-commit
+
+# Install the git hooks
+pre-commit install
+```
+
+Once installed, the hooks will run automatically on each commit.
+
+### Docker Support
+
+This project includes Docker support for development and testing. You can use Docker to run the project without installing Lua and its dependencies locally.
+
+```bash
+# Build and run all checks
+docker-compose up app
+
+# Run tests only
+docker-compose up test
+
+# Run linting only
+docker-compose up lint
+
+# Run formatting only
+docker-compose up format
+
+# Generate coverage report
+docker-compose up coverage
+```
+
+## GitHub Actions Integration
+
+This repository includes GitHub Actions workflows for automated testing, linting, and formatting checks. The workflow runs on every push to the main branch and on pull requests.
+
+## License
+
+[MIT License](LICENSE)

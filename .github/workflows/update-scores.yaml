@@ -1,0 +1,34 @@
+name: Update Player Scores
+
+on:
+  issues:
+    types: [closed]
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'  # Run daily at midnight UTC
+
+permissions:
+  contents: write
+
+jobs:
+  update-scores:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: read
+    steps:
+      - uses: ./.github/workflows/lua-setup.yaml
+      
+      - uses: actions/checkout@v4
+          
+      - name: Update scores
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: lua src/updateScores.lua
+          
+      - name: Commit score changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add scores.yaml votes.yaml
+          git commit -m "Update player scores" || exit 0
+          git push

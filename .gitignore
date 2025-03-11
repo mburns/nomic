@@ -1,3 +1,40 @@
-npm-debug.log
-node_modules/
 .DS_Store
+
+# Lua compiled files
+*.o
+*.so
+*.a
+*.lua.c
+
+# LuaRocks build directories
+lua_modules/
+.luarocks/
+
+# LuaCov output
+luacov.stats.out
+luacov.report.out
+
+# Compiled Lua bytecode
+*.luac
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Docker
+.dockerignore
+
+# Test files
+votes.yaml
+scores.yaml
