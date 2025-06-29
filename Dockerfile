@@ -1,39 +1,24 @@
-FROM alpine:3.18
+FROM node:22-alpine
 
-# Install Lua and development tools
+# Install development tools
 RUN apk add --no-cache \
-    lua5.4 \
-    lua5.4-dev \
-    luarocks \
     git \
-    gcc \
-    libc-dev \
-    make \
-    curl \
-    yaml-dev
+    curl
 
 # Set up working directory
 WORKDIR /app
 
-# Copy rockspec and install dependencies
-COPY nomic-voting-1.0-1.rockspec ./
-RUN luarocks install busted && \
-    luarocks install luacov && \
-    luarocks install luacheck && \
-    luarocks install luafilesystem && \
-    luarocks install lua-cjson && \
-    luarocks install lyaml && \
-    luarocks install luassert
+# Copy package files
+COPY package*.json ./
 
-# Install StyLua
-RUN curl -L https://github.com/JohnnyMorganz/StyLua/releases/download/v0.18.0/stylua-linux-x86_64.zip -o stylua.zip && \
-    unzip stylua.zip && \
-    chmod +x stylua && \
-    mv stylua /usr/local/bin/ && \
-    rm stylua.zip
+# Install dependencies
+RUN npm ci
 
 # Copy source code
 COPY . .
 
+# Build the project
+RUN npm run build
+
 # Set default command
-CMD ["make", "check"] 
+CMD ["npm", "run", "check"] 

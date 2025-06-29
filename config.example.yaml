@@ -1,0 +1,46 @@
+# Nomic Game Configuration Example
+# Copy this file to config.yaml and modify as needed
+
+game:
+  # Voting requirements
+  requiredVotes: 3          # Minimum number of votes needed
+  requiredMajority: 0.5     # Majority percentage (0.5 = 50%)
+  
+  # Scoring system
+  pointsForSuccessfulProposal: 3    # Points for proposer when proposal passes
+  pointsForVotingWithMajority: 2    # Points for voting with the winning side
+  pointsForParticipation: 1         # Points for participating in voting
+  
+  # Automation settings
+  autoMergeEnabled: true            # Enable automatic merging of approved proposals
+  branchProtectionEnabled: true     # Enable branch protection rules
+
+github:
+  # Repository settings
+  baseBranch: "main"                # Default branch for the repository
+  
+  # Labels to use
+  labels:
+    proposal: "proposal"            # Label for new proposals
+    passed: "passed"                # Label for passed proposals
+    failed: "failed"                # Label for failed proposals
+    closed: "closed"                # Label for closed proposals
+
+# Advanced settings
+advanced:
+  # Vote parsing patterns (regex)
+  votePatterns:
+    - "^VOTE:\\s*(FOR|AGAINST)$"
+    - "^I vote (FOR|AGAINST)$"
+    - "^My vote is (FOR|AGAINST)$"
+    - "^Voting (FOR|AGAINST)$"
+    - "^✅ (FOR|AGAINST)$"
+    - "^❌ (FOR|AGAINST)$"
+  
+  # File paths
+  gameStateFile: "game-state.yaml"  # File to store game state
+  scoreboardFile: "SCOREBOARD.md"   # File to store scoreboard
+  
+  # Logging
+  logLevel: "info"                  # Log level: debug, info, warn, error
+  enableDebugLogs: false            # Enable detailed debug logging 

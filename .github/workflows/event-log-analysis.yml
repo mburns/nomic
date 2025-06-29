@@ -1,0 +1,293 @@
+name: Event Log Analysis
+
+on:
+  workflow_dispatch:
+    inputs:
+      analysis_type:
+        description: 'Type of analysis to run'
+        required: true
+        default: 'full'
+        type: choice
+        options:
+        - full
+        - validation
+        - statistics
+        - historical
+  schedule:
+    # Run daily at 2 AM UTC
+    - cron: '0 2 * * *'
+  push:
+    paths:
+      - 'events/game-events.jsonl'
+
+jobs:
+  analyze-event-log:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+
+      - name: Validate event log
+        run: |
+          echo "🔍 Validating event log integrity..."
+          node -e "
+            const { EventLogService } = require('./dist/services/EventLogService');
+            const config = {
+              requiredVotes: 3,
+              requiredMajority: 0.5,
+              pointsForSuccessfulProposal: 3,
+              pointsForVotingWithMajority: 2,
+              pointsForParticipation: 1,
+              autoMergeEnabled: true,
+              branchProtectionEnabled: true,
+            };
+            
+            const service = new EventLogService('events/game-events.jsonl', config);
+            service.validateEventLog().then(result => {
+              console.log('📊 Event Log Validation Results:');
+              console.log('- Valid:', result.isValid ? '✅' : '❌');
+              console.log('- Total Events:', result.eventCount);
+              
+              if (result.errors.length > 0) {
+                console.log('❌ Errors found:');
+                result.errors.forEach(error => console.log('  -', error));
+                process.exit(1);
+              }
+              
+              console.log('✅ Event log validation passed');
+            }).catch(error => {
+              console.error('❌ Validation failed:', error);
+              process.exit(1);
+            });
+          "
+
+      - name: Generate event log statistics
+        if: github.event.inputs.analysis_type == 'full' || github.event.inputs.analysis_type == 'statistics' || github.event_name == 'schedule'
+        run: |
+          echo "📈 Generating event log statistics..."
+          node -e "
+            const { EventLogService } = require('./dist/services/EventLogService');
+            const { StateProcessor } = require('./dist/services/StateProcessor');
+            const fs = require('fs');
+            
+            const config = {
+              requiredVotes: 3,
+              requiredMajority: 0.5,
+              pointsForSuccessfulProposal: 3,
+              pointsForVotingWithMajority: 2,
+              pointsForParticipation: 1,
+              autoMergeEnabled: true,
+              branchProtectionEnabled: true,
+            };
+            
+            const eventLogService = new EventLogService('events/game-events.jsonl', config);
+            const stateProcessor = new StateProcessor(eventLogService);
+            
+            Promise.all([
+              eventLogService.getEventLogStats(),
+              stateProcessor.computeCurrentState(),
+              stateProcessor.getProposalStats(),
+              stateProcessor.getPlayerLeaderboard()
+            ]).then(([logStats, gameState, proposalStats, leaderboard]) => {
+              console.log('📊 Event Log Statistics:');
+              console.log('- Total Events:', logStats.totalEvents);
+              console.log('- Event Types:', JSON.stringify(logStats.eventsByType, null, 2));
+              console.log('- Unique Players:', logStats.uniquePlayers);
+              console.log('- Unique Proposals:', logStats.uniqueProposals);
+              console.log('- First Event:', logStats.firstEvent);
+              console.log('- Last Event:', logStats.lastEvent);
+              
+              console.log('\\n🎮 Game State:');
+              console.log('- Current Turn:', gameState.current_turn);
+              console.log('- Active Players:', Object.keys(gameState.players).length);
+              console.log('- Active Rules:', Object.values(gameState.rules).filter(r => r.status === 'active').length);
+              
+              console.log('\\n📋 Proposal Statistics:');
+              console.log('- Total:', proposalStats.total);
+              console.log('- Open:', proposalStats.open);
+              console.log('- Passed:', proposalStats.passed);
+              console.log('- Failed:', proposalStats.failed);
+              console.log('- Closed:', proposalStats.closed);
+              
+              console.log('\\n🏆 Top Players:');
+              leaderboard.slice(0, 5).forEach((player, i) => {
+                console.log(\`\${i + 1}. \${player.username}: \${player.points} points\`);
+              });
+              
+              // Save detailed statistics
+              const detailedStats = {
+                timestamp: new Date().toISOString(),
+                eventLog: logStats,
+                gameState: {
+                  currentTurn: gameState.current_turn,
+                  playerCount: Object.keys(gameState.players).length,
+                  ruleCount: Object.values(gameState.rules).filter(r => r.status === 'active').length,
+                  eventCount: gameState.event_count
+                },
+                proposals: proposalStats,
+                topPlayers: leaderboard.slice(0, 10)
+              };
+              
+              if (!fs.existsSync('events/processed')) {
+                fs.mkdirSync('events/processed', { recursive: true });
+              }
+              
+              fs.writeFileSync('events/processed/statistics.json', JSON.stringify(detailedStats, null, 2));
+              console.log('\\n💾 Detailed statistics saved to events/processed/statistics.json');
+            }).catch(console.error);
+          "
+
+      - name: Historical analysis
+        if: github.event.inputs.analysis_type == 'full' || github.event.inputs.analysis_type == 'historical'
+        run: |
+          echo "📅 Performing historical analysis..."
+          node -e "
+            const { EventLogService } = require('./dist/services/EventLogService');
+            const { StateProcessor } = require('./dist/services/StateProcessor');
+            const fs = require('fs');
+            
+            const config = {
+              requiredVotes: 3,
+              requiredMajority: 0.5,
+              pointsForSuccessfulProposal: 3,
+              pointsForVotingWithMajority: 2,
+              pointsForParticipation: 1,
+              autoMergeEnabled: true,
+              branchProtectionEnabled: true,
+            };
+            
+            const eventLogService = new EventLogService('events/game-events.jsonl', config);
+            const stateProcessor = new StateProcessor(eventLogService);
+            
+            eventLogService.readAllEvents().then(events => {
+              if (events.length === 0) {
+                console.log('No events found for historical analysis');
+                return;
+              }
+              
+              console.log('📅 Historical Analysis:');
+              
+              // Analyze event frequency over time
+              const eventsByDay = {};
+              const playerActivity = {};
+              
+              events.forEach(entry => {
+                const event = entry.event;
+                const date = event.timestamp.split('T')[0];
+                
+                eventsByDay[date] = (eventsByDay[date] || 0) + 1;
+                
+                // Track player activity
+                if ('proposer' in event) playerActivity[event.proposer] = (playerActivity[event.proposer] || 0) + 1;
+                if ('voter' in event) playerActivity[event.voter] = (playerActivity[event.voter] || 0) + 1;
+                if ('player' in event) playerActivity[event.player] = (playerActivity[event.player] || 0) + 1;
+                if ('username' in event) playerActivity[event.username] = (playerActivity[event.username] || 0) + 1;
+              });
+              
+              console.log('\\n📊 Activity by Day:');
+              Object.entries(eventsByDay)
+                .sort(([a], [b]) => a.localeCompare(b))
+                .slice(-7) // Last 7 days
+                .forEach(([date, count]) => {
+                  console.log(\`  \${date}: \${count} events\`);
+                });
+              
+              console.log('\\n👥 Most Active Players:');
+              Object.entries(playerActivity)
+                .sort(([,a], [,b]) => b - a)
+                .slice(0, 5)
+                .forEach(([player, activity]) => {
+                  console.log(\`  \${player}: \${activity} actions\`);
+                });
+              
+              // Save historical data
+              const historicalData = {
+                timestamp: new Date().toISOString(),
+                totalEvents: events.length,
+                timeRange: {
+                  start: events[0]?.event.timestamp,
+                  end: events[events.length - 1]?.event.timestamp
+                },
+                activityByDay: eventsByDay,
+                playerActivity: playerActivity
+              };
+              
+              if (!fs.existsSync('events/processed/historical')) {
+                fs.mkdirSync('events/processed/historical', { recursive: true });
+              }
+              
+              const filename = \`events/processed/historical/analysis-\${new Date().toISOString().split('T')[0]}.json\`;
+              fs.writeFileSync(filename, JSON.stringify(historicalData, null, 2));
+              console.log(\`\\n💾 Historical analysis saved to \${filename}\`);
+            }).catch(console.error);
+          "
+
+      - name: Create backup
+        if: github.event.inputs.analysis_type == 'full' || github.event_name == 'schedule'
+        run: |
+          echo "💾 Creating event log backup..."
+          node -e "
+            const { EventLogService } = require('./dist/services/EventLogService');
+            const config = {
+              requiredVotes: 3,
+              requiredMajority: 0.5,
+              pointsForSuccessfulProposal: 3,
+              pointsForVotingWithMajority: 2,
+              pointsForParticipation: 1,
+              autoMergeEnabled: true,
+              branchProtectionEnabled: true,
+            };
+            
+            const service = new EventLogService('events/game-events.jsonl', config);
+            service.createBackup().then(backupPath => {
+              console.log('✅ Backup created:', backupPath);
+            }).catch(error => {
+              console.error('❌ Backup failed:', error);
+              process.exit(1);
+            });
+          "
+
+      - name: Commit analysis results
+        if: github.event.inputs.analysis_type == 'full' || github.event.inputs.analysis_type == 'statistics' || github.event_name == 'schedule'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          
+          # Add analysis results
+          if [ -d "events/processed" ]; then
+            git add events/processed/
+          fi
+          
+          # Commit if there are changes
+          if ! git diff --cached --quiet; then
+            git commit -m "Update event log analysis: $(date -u +%Y-%m-%d)"
+            git push
+          else
+            echo "No analysis changes to commit"
+          fi
+
+      - name: Upload analysis artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: event-log-analysis-${{ github.run_number }}
+          path: |
+            events/processed/
+            events/*.backup-*
+          retention-days: 30 

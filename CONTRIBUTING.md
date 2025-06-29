@@ -1,97 +1,57 @@
-# Contributing to Nomic Voting System
+# Contributing to Nomic
 
-Thank you for considering contributing to the Nomic Voting System! This document provides guidelines and instructions for contributing to the project.
+Thank you for your interest in contributing to the Nomic project!
 
-## Development Environment Setup
+## Getting Started
 
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/mburns/nomic.git
-   cd nomic
+1. **Fork the repository** and clone it locally.
+2. **Install dependencies**:
+   ```sh
+   npm install
+   ```
+3. **Run tests**:
+   ```sh
+   npm test
+   ```
+4. **Lint and format code**:
+   ```sh
+   npm run lint
+   npm run format
    ```
 
-2. **Set up development environment**:
-   
-   Using Make:
-   ```bash
-   make dev-setup
-   ```
-   
-   Or manually:
-   ```bash
-   luarocks install busted
-   luarocks install luacov
-   luarocks install luacheck
-   luarocks install stylua
-   luarocks install luafilesystem
-   luarocks install lua-cjson
-   luarocks install lyaml
-   luarocks install luassert
-   ```
+## Project Structure
 
-3. **Set up pre-commit hooks**:
-   ```bash
-   pip install pre-commit
-   pre-commit install
-   ```
+- `src/` - Main TypeScript source code
+- `src/services/` - Core service classes
+- `src/types/` - Type definitions
+- `src/test/` - Jest test files
+- `rules/` - Game rules in Markdown
+- `SCOREBOARD.md` - Current player scores
+- `RULES_SUMMARY.md` - Auto-generated summary of rules
 
-## Development Workflow
+## Submitting Changes
 
-1. **Create a new branch**:
-   ```bash
-   git checkout -b feature/your-feature-name
-   ```
+- Create a new branch for your feature or bugfix.
+- Write clear, descriptive commit messages.
+- Add or update tests as appropriate.
+- Run `npm test` and ensure all tests pass.
+- Run `npm run lint` and `npm run format` to ensure code style consistency.
+- Open a pull request with a clear description of your changes.
 
-2. **Make your changes**:
-   - Write code that follows the project's style guidelines
-   - Add tests for new functionality
-   - Update documentation as needed
+## Code Style
 
-3. **Run checks locally**:
-   ```bash
-   make check
-   ```
+- This project uses [Prettier](https://prettier.io/) and [ESLint](https://eslint.org/) for code formatting and linting.
+- Run `npm run lint` to check for lint errors.
+- Run `npm run format` to automatically format your code.
 
-4. **Commit your changes**:
-   ```bash
-   git commit -m "Add your meaningful commit message here"
-   ```
+## Reporting Issues
 
-5. **Push your branch**:
-   ```bash
-   git push origin feature/your-feature-name
-   ```
+If you find a bug or have a feature request, please open an issue and provide as much detail as possible.
 
-6. **Create a pull request** on GitHub
+## Community
 
-## Code Style Guidelines
+We welcome all contributions and ideas! Please be respectful and follow the [Code of Conduct](CODE_OF_CONDUCT.md) (if present).
 
-- Follow the Lua style guide as enforced by StyLua
-- Use 4 spaces for indentation
-- Keep line length under 100 characters
-- Use meaningful variable and function names
-- Add comments for complex logic
+---
 
-## Testing
-
-- Write tests for all new functionality
-- Ensure all tests pass before submitting a pull request
-- Aim for high code coverage
-
-## Documentation
-
-- Update the README.md file with any new features or changes
-- Document all public functions and modules
-- Keep documentation up-to-date with code changes
-
-## Pull Request Process
-
-1. Ensure all checks pass in your local environment
-2. Update documentation as needed
-3. Create a pull request with a clear description of the changes
-4. Address any feedback from code reviews
-5. Once approved, your changes will be merged
-
-## License
-
-By contributing to this project, you agree that your contributions will be licensed under the project's MIT License. 
+Thank you for helping make Nomic better! 

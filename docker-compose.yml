@@ -5,28 +5,28 @@ services:
     build: .
     volumes:
       - .:/app
-    command: make check
+    command: npm run check
   
   test:
     build: .
     volumes:
       - .:/app
-    command: make test
+    command: npm test
   
   lint:
     build: .
     volumes:
       - .:/app
-    command: make lint
+    command: npm run lint
   
   format:
     build: .
     volumes:
       - .:/app
-    command: make format
+    command: npm run format
   
   coverage:
     build: .
     volumes:
       - .:/app
-    command: make coverage 
+    command: npm run test:coverage 

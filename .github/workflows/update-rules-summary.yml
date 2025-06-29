@@ -1,0 +1,66 @@
+name: Update Rules Summary
+
+on:
+  push:
+    paths:
+      - 'rules/**'
+      - 'scripts/generate-rules-summary.js'
+  # pull_request:
+  #   paths:
+  #     - 'rules/**'
+  #     - 'scripts/generate-rules-summary.js'
+
+jobs:
+  update-summary:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          # Need to fetch the full history for the commit step
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+
+      - name: Generate rules summary
+        run: node scripts/generate-rules-summary.js
+
+      - name: Check for changes
+        id: check-changes
+        run: |
+          if git diff --quiet RULES_SUMMARY.md; then
+            echo "no-changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "no-changes=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit and push changes
+        if: steps.check-changes.outputs.no-changes == 'false' && github.event_name == 'push'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add RULES_SUMMARY.md
+          git commit -m "Update rules summary [skip ci]"
+          git push
+
+      - name: Create Pull Request
+        if: steps.check-changes.outputs.no-changes == 'false' && github.event_name == 'pull_request'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          base: ${{ github.event.pull_request.base.ref }}
+          commit-message: "Update rules summary [skip ci]"
+          title: "Update rules summary"
+          body: "Automatically generated rules summary update"
+          branch: update-rules-summary-${{ github.run_number }}
+          delete-branch: true
