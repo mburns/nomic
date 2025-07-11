@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  app:
+    build: .
+    volumes:
+      - .:/app
+    command: npm run check
+  
+  test:
+    build: .
+    volumes:
+      - .:/app
+    command: npm test
+  
+  lint:
+    build: .
+    volumes:
+      - .:/app
+    command: npm run lint
+  
+  format:
+    build: .
+    volumes:
+      - .:/app
+    command: npm run format
+  
+  coverage:
+    build: .
+    volumes:
+      - .:/app
+    command: npm run test:coverage 

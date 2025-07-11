@@ -1,0 +1,153 @@
+name: Process Nomic Votes
+
+on:
+  issue_comment:
+    types: [created]
+  issues:
+    types: [opened, closed]
+
+jobs:
+  process-vote:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+
+      - name: Validate event log integrity
+        run: |
+          echo "Validating event log integrity..."
+          node -e "
+            const { EventLogService } = require('./dist/services/EventLogService');
+            const config = {
+              requiredVotes: 3,
+              requiredMajority: 0.5,
+              pointsForSuccessfulProposal: 3,
+              pointsForVotingWithMajority: 2,
+              pointsForParticipation: 1,
+              autoMergeEnabled: true,
+              branchProtectionEnabled: true,
+            };
+            const service = new EventLogService('events/game-events.jsonl', config);
+            service.validateEventLog().then(result => {
+              if (!result.isValid) {
+                console.error('Event log validation failed:', result.errors);
+                process.exit(1);
+              }
+              console.log('Event log is valid. Events:', result.eventCount);
+            }).catch(console.error);
+          "
+
+      - name: Process vote
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_EVENT_PATH: ${{ github.event_path }}
+          GITHUB_EVENT_NAME: ${{ github.event_name }}
+        run: npm start
+
+      - name: Compute and save current state
+        run: |
+          echo "Computing current game state from events..."
+          node -e "
+            const { EventLogService } = require('./dist/services/EventLogService');
+            const { StateProcessor } = require('./dist/services/StateProcessor');
+            const fs = require('fs');
+            
+            const config = {
+              requiredVotes: 3,
+              requiredMajority: 0.5,
+              pointsForSuccessfulProposal: 3,
+              pointsForVotingWithMajority: 2,
+              pointsForParticipation: 1,
+              autoMergeEnabled: true,
+              branchProtectionEnabled: true,
+            };
+            
+            const eventLogService = new EventLogService('events/game-events.jsonl', config);
+            const stateProcessor = new StateProcessor(eventLogService);
+            
+            stateProcessor.computeCurrentState().then(state => {
+              // Ensure processed directory exists
+              if (!fs.existsSync('events/processed')) {
+                fs.mkdirSync('events/processed', { recursive: true });
+              }
+              
+              // Save current state
+              fs.writeFileSync('events/processed/current-state.json', JSON.stringify(state, null, 2));
+              console.log('Current state saved to events/processed/current-state.json');
+              
+              // Print summary
+              console.log('Game State Summary:');
+              console.log('- Players:', Object.keys(state.players).length);
+              console.log('- Proposals:', Object.keys(state.proposals).length);
+              console.log('- Active Rules:', Object.values(state.rules).filter(r => r.status === 'active').length);
+              console.log('- Current Turn:', state.current_turn);
+              console.log('- Events Processed:', state.event_count);
+            }).catch(console.error);
+          "
+
+      - name: Check for auto-merge
+        if: github.event_name == 'issue_comment'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
+          GITHUB_REPOSITORY_NAME: ${{ github.event.repository.name }}
+        run: node scripts/check-proposal-status.js ${{ github.event.issue.number }}
+
+      - name: Auto-merge if ready
+        if: github.event_name == 'issue_comment' && steps.check-for-auto-merge.outcome == 'success'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
+          GITHUB_REPOSITORY_NAME: ${{ github.event.repository.name }}
+        run: node scripts/auto-merge-proposal.js ${{ github.event.issue.number }}
+
+      - name: Commit event log changes
+        if: github.event_name == 'issue_comment' || github.event_name == 'issues'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          
+          # Add event log and processed state if they have changes
+          if [ -f "events/game-events.jsonl" ]; then
+            git add events/game-events.jsonl
+          fi
+          
+          if [ -f "events/processed/current-state.json" ]; then
+            git add events/processed/current-state.json
+          fi
+          
+          # Add updated scoreboard and rules summary
+          if [ -f "SCOREBOARD.md" ]; then
+            git add SCOREBOARD.md
+          fi
+          
+          if [ -f "RULES_SUMMARY.md" ]; then
+            git add RULES_SUMMARY.md
+          fi
+          
+          # Commit if there are changes
+          if ! git diff --cached --quiet; then
+            git commit -m "Update game state: ${{ github.event_name }} on issue #${{ github.event.issue.number || 'unknown' }}"
+            git push
+          else
+            echo "No changes to commit"
+          fi 
